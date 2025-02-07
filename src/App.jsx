@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Header from './components/Header';
 import Quiz from './components/Quiz';
+import questions from './questions';
 
 function App() {
     // Quiz state
@@ -14,11 +15,12 @@ function App() {
     return (
         <>
             <Header />
+            {/* Quiz start button displayed only if quiz is not started */}
             {!quizStarted ?
              <button onClick={handleStartQuiz} id="start-quiz-button">
                 Start Quiz
             </button>
-            : <Quiz />}
+            : <Quiz questions={questions} />}
         </>
     )
 }
