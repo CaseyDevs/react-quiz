@@ -1,28 +1,44 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Answer from './Answer';
 
 export default function Quiz( {questions} ) {
-    // Quiz state
     const [currentQuestion, setCurrentQuestion] = useState(0);
+    const [quizFinished, setQuizFinished] = useState(false);
+    const [shuffledAnswers, setShuffledAnswers] = useState([]);
 
+    // Shuffle answers for the current question when the component mounts
+    useEffect(() => {
+        const answers = [...questions[currentQuestion].answers];
+        // Shuffle answers algorithm
+        for (let i = answers.length - 1; i > 0; i--) {  // Loop through the answers array
+            const j = Math.floor(Math.random() * (i + 1)); // Generate a random index
+            [answers[i], answers[j]] = [answers[j], answers[i]]; // Swap the answers
+        }
+        setShuffledAnswers(answers);
+    }, [questions, currentQuestion]);
+    
     // Handle answer selection
     function handleSelectAnswer(selectedAnswer) {
-        console.log(questions[currentQuestion].correctAnswer);
-        console.log(selectedAnswer);
+        if(!quizFinished) {
+            console.log(questions[currentQuestion].correctAnswer);
+            console.log(selectedAnswer);
 
-        // Check if the answer is correct
-        if (selectedAnswer === questions[currentQuestion].correctAnswer) {
-            console.log('Correct answer');
-        } else {
-            console.log('Wrong answer');
-        }
+            // Check if the answer is correct
+            if (selectedAnswer === questions[currentQuestion].correctAnswer) {
+                console.log('Correct answer');
+            } else {
+                console.log('Wrong answer');
+            }
         
-        // Check if there are more questions
-        if (currentQuestion < questions.length - 1) {
-            handleNextQuestion();
-        } else {
-            console.log('Quiz finished');
+            // Check if there are more questions
+            if (currentQuestion < questions.length - 1) {
+                handleNextQuestion();
+            } else {
+                setQuizFinished(true);
+                console.log('Quiz finished');
+            }
         }
+        return;
     }
 
     // Handle next question
@@ -36,10 +52,10 @@ export default function Quiz( {questions} ) {
             <h2>{questions[currentQuestion].text}</h2>
             <div id="question-overview">
                 <ul id="answers">
-                    <Answer answerText={questions[currentQuestion].answers[0]} onSelectAnswer={() => handleSelectAnswer(questions[currentQuestion].answers[0])} />
-                    <Answer answerText={questions[currentQuestion].answers[1]} onSelectAnswer={() => handleSelectAnswer(questions[currentQuestion].answers[1])} />
-                    <Answer answerText={questions[currentQuestion].answers[2]} onSelectAnswer={() => handleSelectAnswer(questions[currentQuestion].answers[2])} />
-                    <Answer answerText={questions[currentQuestion].answers[3]} onSelectAnswer={() => handleSelectAnswer(questions[currentQuestion].answers[3])} />
+                    {/* Display shuffled answers for the current question */}
+                    {shuffledAnswers.map((answer, index) => (
+                        <Answer key={index} answerText={answer} onSelectAnswer={() => handleSelectAnswer(answer)} />
+                    ))}
                 </ul>
             </div>
             </div>
