@@ -7,6 +7,7 @@ export default function Quiz( {questions} ) {
 
     // Handle answer selection
     function handleSelectAnswer(selectedAnswer) {
+        console.log(questions[currentQuestion].correctAnswer);
         console.log(selectedAnswer);
 
         // Check if the answer is correct
@@ -35,10 +36,10 @@ export default function Quiz( {questions} ) {
             <h2>{questions[currentQuestion].text}</h2>
             <div id="question-overview">
                 <ul id="answers">
-                    <Answer answerText={questions[currentQuestion].answers[0]} onSelectAnswer={handleSelectAnswer} />
-                    <Answer answerText={questions[currentQuestion].answers[1]} onSelectAnswer={handleSelectAnswer} />
-                    <Answer answerText={questions[currentQuestion].answers[2]} onSelectAnswer={handleSelectAnswer} />
-                    <Answer answerText={questions[currentQuestion].answers[3]} onSelectAnswer={handleSelectAnswer} />
+                    <Answer answerText={questions[currentQuestion].answers[0]} onSelectAnswer={() => handleSelectAnswer(questions[currentQuestion].answers[0])} />
+                    <Answer answerText={questions[currentQuestion].answers[1]} onSelectAnswer={() => handleSelectAnswer(questions[currentQuestion].answers[1])} />
+                    <Answer answerText={questions[currentQuestion].answers[2]} onSelectAnswer={() => handleSelectAnswer(questions[currentQuestion].answers[2])} />
+                    <Answer answerText={questions[currentQuestion].answers[3]} onSelectAnswer={() => handleSelectAnswer(questions[currentQuestion].answers[3])} />
                 </ul>
             </div>
             </div>

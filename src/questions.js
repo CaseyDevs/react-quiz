@@ -8,6 +8,7 @@ export default [
         'A framework to build user interfaces with help of imperative code.',
         'A library used for building mobile applications only.',
       ],
+      correctAnswer: 'A library to build user interfaces with help of declarative code.',
     },
     {
       id: 'q2',
@@ -18,6 +19,7 @@ export default [
         'Handling errors within the application.',
         'Part of the Redux library for managing global state.',
       ],
+      correctAnswer: 'Enabling the use of state and other React features in functional components.',
     },
     {
       id: 'q3',
@@ -28,6 +30,7 @@ export default [
         'A specific HTML version that was explicitly created for React.',
         'A tool for making HTTP requests in a React application.',
       ],
+      correctAnswer: 'A JavaScript extension that adds HTML-like syntax to JavaScript.',
     },
     {
       id: 'q4',
@@ -38,6 +41,7 @@ export default [
         'By creating a file with a .jsx extension.',
         'By using the "new" keyword followed by the component name.',
       ],
+      correctAnswer: 'By defining a JavaScript function that returns a renderable value.',
     },
     {
       id: 'q5',
@@ -48,6 +52,7 @@ export default [
         'The overall status of a React application, including all props and components.',
         'A library for managing global state in React applications.',
       ],
+      correctAnswer: 'An object in a component that holds values and may cause the component to render on change.',
     },
     {
       id: 'q6',
@@ -58,6 +63,7 @@ export default [
         'By using the forEach() method to iterate over an array of data and returning JSX.',
         'By using the loop() method to iterate over an array of data and returning JSX.',
       ],
+      correctAnswer: 'By using the map() method to iterate over an array of data and returning JSX.',
     },
     {
       id: 'q7',
@@ -68,5 +74,6 @@ export default [
         'Using the && operator.',
         'Using an if-else statement.',
       ],
+      correctAnswer: 'Using a the #if template syntax.',
     },
   ];
