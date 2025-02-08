@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useQuiz } from '../context/quiz-context';
 import { shuffleArray } from '../utils/quizUtils';
 import Answer from './Answer';
+import ProgressBar from './ProgressBar';
 
 export default function Quiz( {questions} ) {
     // Quiz context values
@@ -73,6 +74,8 @@ export default function Quiz( {questions} ) {
                         ))}
                     </ul>
                 </div>
+                {/* Display the progress bar */}
+                <ProgressBar timer={5000} />
             </div>
         </div>
     );
