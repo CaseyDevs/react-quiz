@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Header from './components/Header';
 import Quiz from './components/Quiz';
 import questions from './questions';
+import { QuizProvider } from './context/quiz-context';
 
 // TODO:
 // - Add a timer to the quiz
@@ -29,7 +30,9 @@ function App() {
              <button onClick={handleStartQuiz} id="start-quiz-button">
                 Start Quiz
             </button>
-            : <Quiz questions={questions} />}
+            : <QuizProvider>
+                <Quiz questions={questions} />
+            </QuizProvider>}
         </>
     )
 }
