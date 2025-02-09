@@ -24,6 +24,15 @@ export default function Quiz( {questions} ) {
         const shuffled = shuffleArray(questions[currentQuestion].answers);
         setShuffledAnswers(shuffled);
     }, [questions, currentQuestion]);
+
+    // Move to the next question when the timer ends
+    function moveToNextQuestion() {
+        if (currentQuestion < questions.length - 1) {
+            setCurrentQuestion(currentQuestion + 1);
+        } else {
+            setQuizFinished(true);
+        }
+    }
     
     // Handle answer selection
     function handleSelectAnswer(selectedAnswer) {
@@ -37,18 +46,19 @@ export default function Quiz( {questions} ) {
         if (isCorrect) {
             setScore(prevScore => prevScore + 1);
         }
-        
-        // If there are more questions, go to the next question
-        if (currentQuestion < questions.length - 1) {
-            setCurrentQuestion(currentQuestion + 1);
-        } else {
-            setQuizFinished(true);
-        }
 
         // If there are no questions, display a message (this should never happen)
         if(!questions?.length) {
             return <div>No questions available</div>;
         }
+
+        moveToNextQuestion();
+    }
+
+    // Handle timer end
+    function handleTimerEnd() {
+        if (quizFinished) return;
+        moveToNextQuestion();
     }
 
     return (
@@ -75,7 +85,7 @@ export default function Quiz( {questions} ) {
                     </ul>
                 </div>
                 {/* Display the progress bar */}
-                <ProgressBar timer={5000} />
+                {!quizFinished && <ProgressBar key={currentQuestion} timer={5000} onTimerEnd={handleTimerEnd} />}
             </div>
         </div>
     );
