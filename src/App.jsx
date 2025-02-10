@@ -8,8 +8,6 @@ import { QuizProvider } from './context/quiz-context';
 // - Create an end screen
 // - Add a high score to the quiz
 // - Add a restart button to the quiz
-// - Reset the timer when the question changes
-// - If timer runs out, mark the question as answered incorrectly
 // - Highlight answer green if correct, red if incorrect
                 
 

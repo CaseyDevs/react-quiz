@@ -11,7 +11,9 @@ export default function Quiz( {questions} ) {
         quizFinished, 
         setQuizFinished, 
         score, 
-        setScore 
+        setScore,
+        highScore,
+        setHighScore
     } = useQuiz();
 
     const [shuffledAnswers, setShuffledAnswers] = useState([]);
@@ -36,8 +38,14 @@ export default function Quiz( {questions} ) {
     
     // Handle answer selection
     function handleSelectAnswer(selectedAnswer) {
-        // If the quiz is finished, do nothing
-        if (quizFinished) return;
+        // If the quiz is finished, update the high score and reset the quiz
+        if (quizFinished) {
+            if (score > highScore) {
+                updateHighScore(score);
+            }
+            return;
+        }
+
 
         // Check if the selected answer is correct
         const isCorrect = selectedAnswer === questions[currentQuestion].correctAnswer;
@@ -45,11 +53,7 @@ export default function Quiz( {questions} ) {
         // If the selected answer is correct, increment the score
         if (isCorrect) {
             setScore(prevScore => prevScore + 1);
-        }
 
-        // If there are no questions, display a message (this should never happen)
-        if(!questions?.length) {
-            return <div>No questions available</div>;
         }
 
         moveToNextQuestion();
@@ -61,13 +65,38 @@ export default function Quiz( {questions} ) {
         moveToNextQuestion();
     }
 
+    function updateHighScore(score) {
+        // Get the high score from local storage
+        const highScore = localStorage.getItem('highScore') || 0;
+        // If the score is greater than the high score, update the high score
+        if (score > highScore) {
+            setHighScore(score);
+            // Update the high score in local storage
+            localStorage.setItem('highScore', score);
+        }
+    }
+
+    function resetQuiz() {
+        setCurrentQuestion(0);
+        setScore(0);
+        setQuizFinished(false);
+    }
+
+
     return (
         <div id="quiz">
             <div id="question">
                 <div className="quiz-status">
                     Question {currentQuestion + 1} of {questions.length}
                     {/* If the quiz is finished, display the final score */}
-                    {quizFinished && <div>Final Score: {score}/{questions.length}</div>}
+                    {quizFinished ? 
+                    <div>
+                        <p>Final Score: {score}/{questions.length} High Score: {highScore}</p>
+                        <button id="btn-restart" onClick={resetQuiz}>Restart Quiz</button>
+                    </div> 
+                    : 
+                    null
+                    }
                 </div>
                 {/* Display the current question */}
                 <h2>{questions[currentQuestion].text}</h2>
@@ -85,7 +114,13 @@ export default function Quiz( {questions} ) {
                     </ul>
                 </div>
                 {/* Display the progress bar */}
-                {!quizFinished && <ProgressBar key={currentQuestion} timer={5000} onTimerEnd={handleTimerEnd} />}
+                {!quizFinished && 
+                <ProgressBar 
+                  key={currentQuestion} // key is used to reset the timer when moving to a new question
+                  timer={5000} 
+                  onTimerEnd={handleTimerEnd} 
+                />
+                }
             </div>
         </div>
     );

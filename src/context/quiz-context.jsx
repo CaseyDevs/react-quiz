@@ -9,6 +9,7 @@ export function QuizProvider({ children }) {
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [quizFinished, setQuizFinished] = useState(false);
     const [score, setScore] = useState(0);
+    const [highScore, setHighScore] = useState(localStorage.getItem('highScore') || 0);
 
     // Quiz context value that will be used by the quiz component
     const value = {
@@ -17,7 +18,9 @@ export function QuizProvider({ children }) {
         quizFinished,
         setQuizFinished,
         score,
-        setScore
+        setScore,
+        highScore,
+        setHighScore
     }
     
     return (
