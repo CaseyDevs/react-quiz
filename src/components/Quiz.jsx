@@ -3,6 +3,7 @@ import { useQuiz } from '../context/quiz-context';
 import { shuffleArray } from '../utils/quizUtils';
 import Answer from './Answer';
 import ProgressBar from './ProgressBar';
+import EndScreen from './EndScreen';
 
 export default function Quiz( {questions} ) {
     // Quiz context values
@@ -17,6 +18,7 @@ export default function Quiz( {questions} ) {
     } = useQuiz();
 
     const [shuffledAnswers, setShuffledAnswers] = useState([]);
+    const [userAnswers, setUserAnswers] = useState([]);
 
     // Shuffle answers for the current question when the component mounts
     useEffect(() => {
@@ -38,6 +40,11 @@ export default function Quiz( {questions} ) {
     
     // Handle answer selection
     function handleSelectAnswer(selectedAnswer) {
+        // Add the selected answer to the userAnswers array
+        setUserAnswers(prevAnswers => [...prevAnswers, {
+            userAnswer: selectedAnswer,
+        }]);
+
         // If the quiz is finished, update the high score and reset the quiz
         if (quizFinished) {
             return;
@@ -95,18 +102,10 @@ export default function Quiz( {questions} ) {
 
     return (
         <div id="quiz">
+            {!quizFinished ? (
             <div id="question">
                 <div className="quiz-status">
                     Question {currentQuestion + 1} of {questions.length}
-                    {/* If the quiz is finished, display the final score */}
-                    {quizFinished ? 
-                    <div>
-                        <p>Final Score: {score}/{questions.length} High Score: {highScore}</p>
-                        <button id="btn-restart" onClick={resetQuiz}>Restart Quiz</button>
-                    </div> 
-                    : 
-                    null
-                    }
                 </div>
                 {/* Display the current question */}
                 <h2>{questions[currentQuestion].text}</h2>
@@ -132,6 +131,10 @@ export default function Quiz( {questions} ) {
                 />
                 }
             </div>
+            ) : (
+                // Display the end screen when the quiz is finished
+                <EndScreen score={score} highScore={highScore} questions={questions} resetQuiz={resetQuiz} userAnswers={userAnswers} />
+            )}
         </div>
     );
 }

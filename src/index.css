@@ -369,6 +369,7 @@ header h1 {
   border-radius: 24px;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
+  margin-top: 1rem;
 }
 
 #btn-restart:hover,
