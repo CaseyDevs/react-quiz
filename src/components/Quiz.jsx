@@ -40,9 +40,6 @@ export default function Quiz( {questions} ) {
     function handleSelectAnswer(selectedAnswer) {
         // If the quiz is finished, update the high score and reset the quiz
         if (quizFinished) {
-            if (score > highScore) {
-                updateHighScore(score);
-            }
             return;
         }
 
@@ -54,6 +51,18 @@ export default function Quiz( {questions} ) {
         if (isCorrect) {
             setScore(prevScore => prevScore + 1);
 
+        }
+
+        // If the current question is the last question, update the high score
+        if (currentQuestion === questions.length - 1) {
+            // If the answer is correct, increment the score
+            const finalScore = isCorrect ? score + 1 : score;
+
+            // If the final score is greater than the high score, update the high score
+            if (finalScore > highScore) {
+                updateHighScore(finalScore);
+                localStorage.setItem('highScore', finalScore);
+            }
         }
 
         moveToNextQuestion();
@@ -76,6 +85,7 @@ export default function Quiz( {questions} ) {
         }
     }
 
+    // Reset the quiz  
     function resetQuiz() {
         setCurrentQuestion(0);
         setScore(0);

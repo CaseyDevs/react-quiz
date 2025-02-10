@@ -6,8 +6,6 @@ import { QuizProvider } from './context/quiz-context';
 
 // TODO:
 // - Create an end screen
-// - Add a high score to the quiz
-// - Add a restart button to the quiz
 // - Highlight answer green if correct, red if incorrect
                 
 
