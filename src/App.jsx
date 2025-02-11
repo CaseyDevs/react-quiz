@@ -5,7 +5,6 @@ import questions from './questions';
 import { QuizProvider } from './context/quiz-context';
 
 // TODO:
-// - Create an end screen
 // - Highlight answer green if correct, red if incorrect
                 
 

@@ -57,7 +57,7 @@ export default function Quiz( {questions} ) {
         // If the selected answer is correct, increment the score
         if (isCorrect) {
             setScore(prevScore => prevScore + 1);
-
+            
         }
 
         // If the current question is the last question, update the high score
@@ -97,6 +97,7 @@ export default function Quiz( {questions} ) {
         setCurrentQuestion(0);
         setScore(0);
         setQuizFinished(false);
+        setUserAnswers([]);
     }
 
 

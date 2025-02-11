@@ -28,7 +28,7 @@ export default function EndScreen({score, highScore, resetQuiz, questions, userA
                                 className={`user-answer ${
                                     userAnswers[index].userAnswer === questions[index].correctAnswer 
                                         ? ' correct' 
-                                        : ' wrong'
+                                        : ' wrong'  
                                 }`}
                             >
                                 {userAnswers[index].userAnswer}
