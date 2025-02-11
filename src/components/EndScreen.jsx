@@ -1,6 +1,10 @@
 import quizCompleteImage from '../assets/quiz-complete.png';
 
 export default function EndScreen({score, highScore, resetQuiz, questions, userAnswers}) {
+    
+    const scorePercentage = Math.round((score / questions.length) * 100);
+    const highScorePercentage = Math.round((highScore / questions.length) * 100);
+    
     return (
          // Display the end screen when the quiz is finished
          <div id="summary">
@@ -8,11 +12,11 @@ export default function EndScreen({score, highScore, resetQuiz, questions, userA
             <h2>Quiz Completed!</h2>
             <div id="summary-stats">
                 <p>
-                    <span className="number">{score}</span>
+                    <span className="number">{scorePercentage + '%'}</span>
                     <span className="text">Score</span>
                 </p>
                 <p>
-                    <span className="number">{highScore}</span>
+                    <span className="number">{highScorePercentage + '%'}</span>
                     <span className="text">High Score</span>
                 </p>
             </div>
