@@ -98,6 +98,7 @@ export default function Quiz( {questions} ) {
         setScore(0);
         setQuizFinished(false);
         setUserAnswers([]);
+        setShuffledAnswers([]);
     }
 
 

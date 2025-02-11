@@ -23,15 +23,17 @@ export default function EndScreen({score, highScore, resetQuiz, questions, userA
                         <h3>{index + 1}</h3>
                         <p className="question">{question.text}</p>
                         <div className="user-answer">
-                            <span 
+                            <span
+
                                 // If the user's answer is correct, add the 'correct' class, otherwise add the 'wrong' class
                                 className={`user-answer ${
-                                    userAnswers[index].userAnswer === questions[index].correctAnswer 
+                                    userAnswers[index] && userAnswers[index].userAnswer === questions[index].correctAnswer 
                                         ? ' correct' 
                                         : ' wrong'  
                                 }`}
                             >
-                                {userAnswers[index].userAnswer}
+                                
+                                {userAnswers[index] ? userAnswers[index].userAnswer : 'No answer' }
                             </span>
                         </div>
                     </li>
