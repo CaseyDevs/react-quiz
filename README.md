@@ -1,4 +1,4 @@
-# React Quiz App (Unfinished)
+# React Quiz App
 
 A dynamic quiz application built with React that tests users' knowledge of React fundamentals. Features a clean UI, timer-based questions, and immediate feedback.
 
